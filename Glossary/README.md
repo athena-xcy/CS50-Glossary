@@ -6,6 +6,8 @@
 
 ```
 npm install
+API_ENDPOINT=... # 服务器url, 如http://localhost:5000
+echo API_ENDPOINT=$API_ENDPOINT >.env
 npm run dev
 ```
 
