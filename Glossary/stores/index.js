@@ -1,0 +1,1 @@
+export { getGlossaryStore } from './GlossaryStore';
