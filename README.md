@@ -2,6 +2,6 @@
 
 通过网页查找，添加和更新术语表 
 
-![interface](interface.png)
+![interface](images/interface.png)
 
 
