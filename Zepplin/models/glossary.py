@@ -15,6 +15,26 @@ class Glossary(db.Model):
     updatetime = db.Column(db.Integer(), default=time.time)
     delete = db.Column(db.Integer, default=0)
 
+    @staticmethod
+    def generate_fake(num=20):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed, randint
+        import forgery_py
+        seed()
+        count = 0
+        while count < num:
+            updatetime = time.time() - randint(0, 60 * 60 * 24 * 30)
+            createtime = updatetime - randint(0, 60 * 60 * 24 * 30)
+            g = Glossary(word=forgery_py.lorem_ipsum.word(), translation=forgery_py.lorem_ipsum.word(), 
+                         remark=forgery_py.lorem_ipsum.sentence(), creator=forgery_py.name.full_name(), 
+                         createtime=createtime, updatetime=updatetime)
+            db.session.add(g)
+            try:
+                db.session.commit()
+                count += 1
+            except IntegrityError:
+                db.session.rollback()
+
 class GlossarySchema(ModelSchema):
     class Meta:
         model = Glossary

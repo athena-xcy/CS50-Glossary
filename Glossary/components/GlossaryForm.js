@@ -12,7 +12,7 @@ const updateFormResponsive = {
     xl: { span: 10 }
 };
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 @inject('glossaryStore')
 @observer

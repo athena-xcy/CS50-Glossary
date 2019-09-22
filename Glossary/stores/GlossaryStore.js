@@ -4,6 +4,8 @@ import agent from './Agent'
 
 class GlossaryStore extends BaseStore {
     @observable allGlossaries = {};
+    @observable paginatedGlossaries = [];
+    @observable pagination = { pageSize: 20, current: 1, total: 0 };
     @observable word = null;
     @observable glossary = {};
     @observable isloading = false;
@@ -14,6 +16,24 @@ class GlossaryStore extends BaseStore {
                 this.allGlossaries = response.result;
                 return response;
             }));
+    }
+
+    @action async getPaginatedGlossaries() {
+        this.loading = true;
+        const { pageSize, current } = this.pagination;
+        return await agent.Glossary.getPaginatedGlossries(pageSize, current)
+            .then(action(response => {
+                if (response.errno == 0) {
+                    this.pagination.total = response.result.total;
+                    this.paginatedGlossaries = response.result.glossaries;
+                }
+                this.loading = false;
+            }))
+    }
+
+
+    @action setCurrentPage(current) {
+        this.pagination.current = current;
     }
 
     @action async updateGlossary(word, params) {
