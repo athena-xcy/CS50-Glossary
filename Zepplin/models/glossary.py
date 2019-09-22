@@ -18,6 +18,4 @@ class GlossarySchema(ModelSchema):
     class Meta:
         model = Glossary
 
-    word = fields.Function(lambda obj: obj.word.capitalize())
-
 glossarySchema = GlossarySchema()

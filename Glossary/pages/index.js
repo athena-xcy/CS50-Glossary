@@ -10,7 +10,12 @@ const Index = () => (
         <Content>
             <div style={{ marginTop: '10%', marginBottom: 'auto' }}>
                 <Row>
-                    <Col offset={6} span={12}>
+                    <Col 
+                    xs={{ span: 20, offset: 2 }} 
+                    sm={{ span: 20, offset: 2 }}
+                    md={{ span: 16, offset: 4 }} 
+                    lg={{ span: 12, offset: 6 }} 
+                    xl={{ span: 12, offset: 6 }}>
                         <GlossarySearch />
                     </Col>
                 </Row>

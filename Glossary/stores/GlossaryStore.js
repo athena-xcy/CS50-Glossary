@@ -18,6 +18,9 @@ class GlossaryStore extends BaseStore {
     }
 
     @action async updateGlossary(word, params) {
+        if (word.length == 0) {
+            return;
+        }
         this.isloading = true;
         return await agent.Glossary.updateGlossary(word, params)
             .then(action((response) => {
@@ -31,6 +34,9 @@ class GlossaryStore extends BaseStore {
     }
 
     @action async setWord(word) {
+        if (word.length == 0) {
+            return;
+        }
         this.word = word;
         this.isloading = true;
         return await agent.Glossary.queryGlossary(word)
@@ -42,7 +48,7 @@ class GlossaryStore extends BaseStore {
                 } else {
                     this.glossary = {
                         gid: -1,
-                        word: word,
+                        word: this.word,
                         translation: '',
                         author: '',
                         remark: '',
@@ -52,5 +58,11 @@ class GlossaryStore extends BaseStore {
             })); 
     }
 }
+
+export const capitalizeWord = (word) => {
+    return _.split(word, ' ')
+            .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+            .join(' ');
+};
 
 export const getGlossaryStore = getOrCreateStore('glossaryStore', GlossaryStore);

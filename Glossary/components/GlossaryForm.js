@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Form, Row, Col, Button, Input, Descriptions, Card, Icon, Spin, message } from 'antd';
 import moment from 'moment';
+import { capitalizeWord } from '../stores/GlossaryStore';
+
+const updateFormResponsive = {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 10 },
+    lg: { span: 10 },
+    xl: { span: 10 }
+};
 
 @inject('glossaryStore')
 @observer
@@ -40,8 +49,10 @@ class GlossaryForm extends Component {
 
         if (!glossaryStore.word) {
             return null;
+        } else if (glossaryStore.isLoading) {
+            return <Spin />;
         } else if (!glossaryStore.glossary) {
-            return <Spin />
+            return null;
         }
 
         const glossary = glossaryStore.glossary;
@@ -58,25 +69,29 @@ class GlossaryForm extends Component {
         const toggleEdit = () => {
             if (glossary.gid >= 0) { 
                 this.setState({ isEditing: !this.state.isEditing })
+            } else {
+                message.error('该术语还未提交');
             }
         }
 
-        console.log('Form' + glossary.updater);
+        console.log('Form', glossary.updater);
+
+        const isEditing = this.state.isEditing || glossary.gid <= 0;
 
         return (
             <Card 
             loading={this.state.loading}
-            extra={<Icon type={ this.state.isEditing ? "table" : "edit" } onClick={toggleEdit} />}
-            title={<span>{glossary.word} <span style={{ fontSize: '0.6em'}}>{glossary.gid > 0 ? '#' + glossary.gid : '(未添加)' }</span></span>}
+            extra={<Icon type={ isEditing ? "table" : "edit" } onClick={toggleEdit} style={{ fontSize: '1.2em', color: "#1084f5"}}/>}
+            title={<span>{capitalizeWord(glossary.word)} <span style={{ fontSize: '0.6em'}}>{glossary.gid > 0 ? '#' + glossary.gid : '(未添加)' }</span></span>}
             headStyle={{ fontSize: '1.6em'}}
             bordered={true}
             style={{ borderRadius: 5 }}>
-                { this.state.isEditing || glossary.gid <= 0 ? (
+                { isEditing ? (
                     <Form onSubmit={this.onSubmit}>
                         <Row type="flex" justify="space-between">
-                        <Col span={10}>{renderFormItem('译名', 'translation', glossary.translation, <Input/>)}</Col>
-                        <Col span={10}>{renderFormItem('修改人', 'author', '', <Input/>)}</Col>
-                        <Col span={24}>{renderFormItem('备注', 'remark', glossary.remark, <Input/>, false)}</Col>
+                        <Col {...updateFormResponsive}>{renderFormItem('译名', 'translation', glossary.translation, <Input/>)}</Col>
+                        <Col {...updateFormResponsive}>{renderFormItem('修改人', 'author', '', <Input/>)}</Col>
+                        <Col span={24} >{renderFormItem('备注', 'remark', glossary.remark, <Input/>, false)}</Col>
                         </Row>
                         <Button type="primary" htmlType="submit" style={{ float: 'right' }}>提交修改</Button>
                     </Form>)
@@ -87,8 +102,8 @@ class GlossaryForm extends Component {
                         <Descriptions.Item span={2} label="译名">{glossary.translation}</Descriptions.Item>
                         <Descriptions.Item label="添加人">{glossary.creator}</Descriptions.Item>
                         <Descriptions.Item label="添加时间">{moment.unix(glossary.createtime).fromNow()}</Descriptions.Item>
-                        <Descriptions.Item label="修改人">{glossary.updater}</Descriptions.Item>
-                        <Descriptions.Item label="修改时间">{moment.unix(glossary.updatetime).fromNow()}</Descriptions.Item>
+                        <Descriptions.Item label="上次修改人">{glossary.updater}</Descriptions.Item>
+                        <Descriptions.Item label="上次修改时间">{moment.unix(glossary.updatetime).fromNow()}</Descriptions.Item>
                         <Descriptions.Item span={2} label="备注">{glossary.remark}</Descriptions.Item>
                     </Descriptions>)
                 }

@@ -17,6 +17,7 @@ def get_all_glossaries():
 # 详情
 @api.route('/glossary/<word>', methods=['GET'])
 def get_glossary(word):
+    word = word.lower()
     glossary = Glossary.query.filter_by(word=word).first()
     result = glossarySchema.dump(glossary) if glossary else None
     return build_success_response(data={'result':  result})
@@ -33,6 +34,7 @@ def update_glossary(word):
     if not translation or not author:
         return bad_request('缺少参数')
     
+    word = word.lower()
     glossary = Glossary.query.filter_by(word=word).first()
     if glossary:
         glossary.translation = translation
@@ -40,7 +42,7 @@ def update_glossary(word):
         glossary.updater = author
         glossary.updatetime = time.time()
     else:
-        glossary = Glossary(word=word.lower(), translation=translation, remark=remark, creator=author, updater=author)
+        glossary = Glossary(word=word, translation=translation, remark=remark, creator=author, updater=author)
 
     db.session.add(glossary)
     db.session.commit()
