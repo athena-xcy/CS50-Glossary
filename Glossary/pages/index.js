@@ -1,4 +1,4 @@
-import { Layout, Row, Col, Card } from 'antd';
+import { Layout, Row, Col, Icon } from 'antd';
 import GlossarySearch from '../components/GlossarySearch'
 import GlossaryForm from '../components/GlossaryForm';
 
@@ -6,9 +6,13 @@ const { Header, Content, Footer } = Layout;
 
 const Index = () => (
     <Layout>
-        <Header />
+        <Header>
+            <h1 style={{ fontSize: '2em', textAlign: 'left', color: '#C4C4C4' }}>
+                <Icon type="build" theme="filled" /> 术语表
+            </h1>
+        </Header>
         <Content>
-            <div style={{ marginTop: '10%', marginBottom: 'auto' }}>
+            <div style={{ marginTop: '10%' }}>
                 <Row>
                     <Col 
                     xs={{ span: 20, offset: 2 }} 
@@ -16,7 +20,6 @@ const Index = () => (
                     md={{ span: 16, offset: 4 }} 
                     lg={{ span: 12, offset: 6 }} 
                     xl={{ span: 12, offset: 6 }}>
-Hellp
                         <GlossarySearch />
                     </Col>
                 </Row>
