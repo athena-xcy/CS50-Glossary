@@ -13,9 +13,11 @@ class Glossary(db.Model):
     createtime = db.Column(db.Integer(), default=time.time)
     updater = db.Column(db.String(100))
     updatetime = db.Column(db.Integer(), default=time.time)
+    delete = db.Column(db.Integer, default=0)
 
 class GlossarySchema(ModelSchema):
     class Meta:
         model = Glossary
+        exclude = ('delete')
 
 glossarySchema = GlossarySchema()

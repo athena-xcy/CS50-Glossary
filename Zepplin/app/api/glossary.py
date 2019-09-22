@@ -9,7 +9,7 @@ from models.glossary import Glossary, glossarySchema
 # 列表
 @api.route('/glossaries', methods=['GET'])
 def get_all_glossaries():
-    glossaries = Glossary.query.all()
+    glossaries = Glossary.query.filter_by(delete=0).all()
     result = { g.word: g.translation for g in glossaries }
     return build_success_response(data={'result': result })
 
@@ -18,7 +18,7 @@ def get_all_glossaries():
 @api.route('/glossary/<word>', methods=['GET'])
 def get_glossary(word):
     word = word.lower()
-    glossary = Glossary.query.filter_by(word=word).first()
+    glossary = Glossary.query.filter_by(word=word, delete=0).first()
     result = glossarySchema.dump(glossary) if glossary else None
     return build_success_response(data={'result':  result})
 
@@ -35,7 +35,7 @@ def update_glossary(word):
         return bad_request('缺少参数')
     
     word = word.lower()
-    glossary = Glossary.query.filter_by(word=word).first()
+    glossary = Glossary.query.filter_by(word=word, delete=0).first()
     if glossary:
         glossary.translation = translation
         glossary.remark = remark
