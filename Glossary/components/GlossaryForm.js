@@ -97,14 +97,15 @@ class GlossaryForm extends Component {
                     </Form>)
                 :
                     (<Descriptions  
-                    column={{ md: 2, sm: 1, xs: 1}}
+                    column={{ md: 4, sm: 2, xs: 1}}
+                    layout='vertical'
                     bordered>
-                        <Descriptions.Item span={2} label="译名">{glossary.translation}</Descriptions.Item>
+                        <Descriptions.Item span={4} label="译名">{glossary.translation}</Descriptions.Item>
                         <Descriptions.Item label="添加人">{glossary.creator}</Descriptions.Item>
                         <Descriptions.Item label="添加时间">{moment.unix(glossary.createtime).fromNow()}</Descriptions.Item>
                         <Descriptions.Item label="上次修改人">{glossary.updater}</Descriptions.Item>
                         <Descriptions.Item label="上次修改时间">{moment.unix(glossary.updatetime).fromNow()}</Descriptions.Item>
-                        <Descriptions.Item span={2} label="备注">{glossary.remark}</Descriptions.Item>
+                        <Descriptions.Item span={4} label="备注">{glossary.remark}</Descriptions.Item>
                     </Descriptions>)
                 }
             </Card>

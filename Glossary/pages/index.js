@@ -22,7 +22,12 @@ Hellp
                 </Row>
                 <Row style={{ height: 50 }}/>
                 <Row>
-                    <Col offset={4} span={16}>
+                <Col 
+                    xs={{ span: 20, offset: 2 }} 
+                    sm={{ span: 20, offset: 2 }}
+                    md={{ span: 16, offset: 4 }} 
+                    lg={{ span: 16, offset: 4 }} 
+                    xl={{ span: 16, offset: 4 }}>
                         <GlossaryForm />
                     </Col>
                 </Row>
