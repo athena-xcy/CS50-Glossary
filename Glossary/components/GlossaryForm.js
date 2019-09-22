@@ -28,11 +28,9 @@ class GlossaryForm extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
                 glossaryStore.updateGlossary(glossaryStore.word, values)
                     .then(response => {
                         if (response.errno == 0) {
-                            console.log('Success');
                             this.setState({ isEditing: false });
                             message.success('更新成功');
                         }
@@ -73,8 +71,6 @@ class GlossaryForm extends Component {
                 message.error('该术语还未提交');
             }
         }
-
-        console.log('Form', glossary.updater);
 
         const isEditing = this.state.isEditing || glossary.gid <= 0;
 
