@@ -11,7 +11,6 @@ export default async function custom_fetch(object) {
     const path = _.get(object, 'path', '');
 
     const url = process.env.API_ENDPOINT + urlPrefix + path;
-    console.log(object, url);
 
     const defaultHeaders = {
         'Accept': 'application/json'
@@ -25,7 +24,6 @@ export default async function custom_fetch(object) {
         options.headers['Content-Type'] = 'application/json';
         options.body = JSON.stringify(params);
     }
-    console.log(options);
 
     const res = await fetch(url, options)
         .then(response => {
@@ -50,8 +48,6 @@ export default async function custom_fetch(object) {
     if (!_.includes([404, 200], res.status) && result.errno < 8000) {
         message.error(result.msg);
     }
-
-    console.log(result)
 
     return result;
 }

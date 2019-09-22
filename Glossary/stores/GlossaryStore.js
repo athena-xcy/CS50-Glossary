@@ -11,7 +11,6 @@ class GlossaryStore extends BaseStore {
     @action async getAllGlossaries() {
         return await agent.Glossary.getAllGlossaries()
             .then(action(response => {
-                console.log(response);
                 this.allGlossaries = response.result;
                 return response;
             }));
@@ -42,7 +41,6 @@ class GlossaryStore extends BaseStore {
         this.isloading = true;
         return await agent.Glossary.queryGlossary(word)
             .then(action(response => {
-                console.log(response);
                 this.isloading = false;
                 if (response.errno == 0) {
                     this.glossary = response.result;
