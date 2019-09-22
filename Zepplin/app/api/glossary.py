@@ -2,7 +2,7 @@ import time
 from flask import request
 from . import api
 from app import db
-from ..helper import build_success_response, bad_request
+from ..helper import build_success_response, build_error_response, bad_request
 from models.glossary import Glossary, glossarySchema
 
 
@@ -15,18 +15,21 @@ def get_all_glossaries():
 
 
 # 详情
-@api.route('/glossary/<word>', methods=['GET'])
-def get_glossary(word):
-    word = word.lower()
+@api.route('/glossary', methods=['GET'])
+def get_glossary():
+    word = request.args.get('word', '').lower()
     glossary = Glossary.query.filter_by(word=word, delete=0).first()
-    result = glossarySchema.dump(glossary) if glossary else None
-    return build_success_response(data={'result':  result})
+    if glossary:
+        return build_success_response(data={'result':  glossarySchema.dump(glossary)})
+    else:
+        return build_error_response(msg='not found')
 
 
 # 修改/新增
-@api.route('/glossary/<word>', methods=['POST'])
-def update_glossary(word):
+@api.route('/glossary', methods=['POST'])
+def update_glossary():
     payload = request.get_json(force=True)
+    word = payload.get('word', '').lower()
     translation = payload.get('translation', '')
     remark = payload.get('remark', '')
     author = payload.get('author', '')
@@ -34,7 +37,6 @@ def update_glossary(word):
     if not translation or not author:
         return bad_request('缺少参数')
     
-    word = word.lower()
     glossary = Glossary.query.filter_by(word=word, delete=0).first()
     if glossary:
         glossary.translation = translation

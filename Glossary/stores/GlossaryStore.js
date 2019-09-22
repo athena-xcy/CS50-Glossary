@@ -43,7 +43,7 @@ class GlossaryStore extends BaseStore {
             .then(action(response => {
                 console.log(response);
                 this.isloading = false;
-                if (response.result) {
+                if (response.errno == 0) {
                     this.glossary = response.result;
                 } else {
                     this.glossary = {
