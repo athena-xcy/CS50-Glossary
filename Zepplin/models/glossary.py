@@ -18,6 +18,6 @@ class Glossary(db.Model):
 class GlossarySchema(ModelSchema):
     class Meta:
         model = Glossary
-        exclude = ('delete')
+        exclude = ('delete', )
 
 glossarySchema = GlossarySchema()
