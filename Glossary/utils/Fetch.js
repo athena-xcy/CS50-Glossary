@@ -11,7 +11,7 @@ export default async function custom_fetch(object) {
     const path = _.get(object, 'path', '');
 
     const url = process.env.API_ENDPOINT + urlPrefix + path;
-    console.log(url);
+    console.log(object, url);
 
     const defaultHeaders = {
         'Accept': 'application/json'

@@ -23,7 +23,7 @@ class GlossaryStore extends BaseStore {
         }
         this.isloading = true;
         params.word = word;
-        return await agent.Glossary.updateGlossary(word, params)
+        return await agent.Glossary.updateGlossary(params)
             .then(action((response) => {
                 this.isloading = false;
                 if (response.errno == 0) {

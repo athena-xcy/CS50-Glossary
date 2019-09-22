@@ -16,6 +16,7 @@ const Index = () => (
                     md={{ span: 16, offset: 4 }} 
                     lg={{ span: 12, offset: 6 }} 
                     xl={{ span: 12, offset: 6 }}>
+Hellp
                         <GlossarySearch />
                     </Col>
                 </Row>
