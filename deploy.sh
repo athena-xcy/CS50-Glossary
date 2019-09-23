@@ -1,4 +1,5 @@
 echo "Start Deploying Glossary"
+source ~/.profile
 echo "-- start pulling from github"
 git pull
 echo "-- start installing independencies"
