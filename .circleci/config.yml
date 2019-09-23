@@ -7,11 +7,10 @@ jobs:
   deploy:
     machine:
       enabled: true
-
     steps:
       - run:
-        name: deploy
-        command: ssh $SSH_USER@$SSH_HOST "~/CS50-Glossary/Glossary/deploy.sh"
+          name: deploy
+          command: ssh $SSH_USER@$SSH_HOST "~/CS50-Glossary/Glossary/deploy.sh"
 
 workflows:
   version: 2
