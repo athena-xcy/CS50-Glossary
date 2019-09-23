@@ -1,5 +1,6 @@
-echo "Start Deploying Glossary"
+#!/bin/bash
 source ~/.profile
+echo "Start Deploying Glossary"
 cd ~/CS50-Glossary/Glossary
 echo "-- start pulling from github"
 git pull
