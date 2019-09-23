@@ -26,7 +26,7 @@ export default inject()(
                 </Row>
             </Header>
             <Content style={{ paddingTop: 50, paddingLeft: 30, paddingRight: 30, ...style }}>{children}</Content>
-            <Footer style={{textAlign: 'center'}}>Powered by CS50</Footer>
+            <Footer style={{textAlign: 'center'}}></Footer>
             <style>{`
                 #__next {
                     height: 100%;
