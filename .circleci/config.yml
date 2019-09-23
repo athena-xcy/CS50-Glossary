@@ -1,0 +1,24 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  deploy:
+    working_directory: ~/CS50-Glossary/Glossary
+
+    steps:
+      - checkout
+
+      - run: npm install
+      - run: npm run build
+      - run: npm run start -p 3001
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Input, AutoComplete, message } from 'antd';
 import _ from 'lodash';
 import { inject, observer } from 'mobx-react';
+import { capitalizeWord } from '../stores/GlossaryStore'
 
 const { Search } = Input;
 const { Option } = AutoComplete;
@@ -31,13 +32,13 @@ export default class GlossarySearch extends Component {
         const { glossaryStore } = this.props;
         const glossaries = glossaryStore.allGlossaries;
         this.setState({
-            dataSource: !value ? [] : _.filter(_.keys(glossaries), key => key.slice(0, len) === value)
+            dataSource: !value ? [] : _.filter(_.keys(glossaries), key => key.slice(0, len).toLowerCase() === value.toLowerCase())
         });
     };
 
     onSearch = (value, event) => {
-        // 回车，先触发onSearch, 后触发补全
-        if (event.type == 'keydown') {
+        // 回车，先触发onSearch，后触发补全
+        if (event.type == 'keydown' || !value) {
             return;
         }
         const { glossaryStore } = this.props;
@@ -55,7 +56,7 @@ export default class GlossarySearch extends Component {
         
         const renderOption = (word) => (
             <Option key={word}  value={word}>
-                {word}
+                {capitalizeWord(word)}
                 <span style={{ position: 'absolute', right: 16}}>{glossaries[word]}</span>
             </Option>
         );
