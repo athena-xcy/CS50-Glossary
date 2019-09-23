@@ -4,15 +4,14 @@
 #
 version: 2
 jobs:
+  docker:
+      - image: circleci/node:7.10
+
   deploy:
-    working_directory: ~/CS50-Glossary/Glossary
+      working_directory: ~/CS50-Glossary/Glossary
 
-    steps:
-      - checkout
-
-      - run: npm install
-      - run: npm run build
-      - run: npm run start -p 3001
+      steps:
+        - run: ssh $SSH_USER@$SSH_HOST "~/CS50-Glossary/Glossary/deploy.sh"
 
 workflows:
   version: 2
