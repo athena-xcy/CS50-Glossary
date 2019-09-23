@@ -4,14 +4,14 @@
 #
 version: 2
 jobs:
-  docker:
-      - image: circleci/node:7.10
-
   deploy:
-      working_directory: ~/CS50-Glossary/Glossary
+    machine:
+      enabled: true
 
-      steps:
-        - run: ssh $SSH_USER@$SSH_HOST "~/CS50-Glossary/Glossary/deploy.sh"
+    steps:
+      - run:
+        name: deploy
+        command: ssh $SSH_USER@$SSH_HOST "~/CS50-Glossary/Glossary/deploy.sh"
 
 workflows:
   version: 2
