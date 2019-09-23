@@ -8,7 +8,6 @@ const Glossary = () => (
 );
 
 Glossary.getInitialProps = async function({store: {glossaryStore}}) {
-    glossaryStore.getAllGlossaries();
     return {};
 }
   
