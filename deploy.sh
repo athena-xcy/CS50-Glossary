@@ -11,6 +11,7 @@ npm install
 echo "-- start building"
 npm run build
 echo "-- restart service"
+sudo supervisorctl -c ~/supervisor.conf stop Glossary
 sudo pkill -f node
-sudo supervisorctl -c ~/supervisor.conf restart Glossary
+sudo supervisorctl -c ~/supervisor.conf start Glossary
 echo "-- Deployment Success"
