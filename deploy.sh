@@ -1,5 +1,7 @@
 #!/bin/bash
 source ~/.profile
+source ~/.bashrc
+echo $NVM_DIR
 echo "Start Deploying Glossary"
 cd ~/CS50-Glossary/Glossary
 echo "-- start pulling from github"
@@ -9,6 +11,6 @@ npm install
 echo "-- start building"
 npm run build
 echo "-- restart service"
-pkill -f node
+sudo pkill -f node
 sudo supervisorctl -c ~/supervisor.conf restart Glossary
 echo "-- Deployment Success"
