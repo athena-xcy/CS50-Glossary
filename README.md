@@ -1,5 +1,7 @@
-# CS50-Glossary
+# Glossary 术语表
 
-CS50术语表项目
+通过网页查找，添加和更新术语表 
 
-通过网页直接查找，添加和修改术语表。
+![interface](images/interface.png)
+
+
