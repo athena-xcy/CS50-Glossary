@@ -5,14 +5,12 @@
 version: 2
 jobs:
   deploy:
-    working_directory: ~/CS50-Glossary/Glossary
-
+    machine:
+      enabled: true
     steps:
-      - checkout
-
-      - run: npm install
-      - run: npm run build
-      - run: npm run start -p 3001
+      - run:
+          name: deploy
+          command: ssh $SSH_USER@$SSH_HOST "bash -i ~/CS50-Glossary/Glossary/deploy.sh"
 
 workflows:
   version: 2
